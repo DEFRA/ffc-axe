@@ -13,4 +13,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN npm install --global --ignore-scripts @axe-core/cli
 
-ENTRYPOINT ["/usr/bin/npx","axe","--chromedriver-path=/usr/bin/chromedriver","--dir=/home/node/test-output/"]
+CMD [axe]

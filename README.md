@@ -21,17 +21,10 @@ services:
       - ./test-output/:/home/node/test-output/
 
   axe:
-    image: ffc-axe
+    image: defradigital/ffc-axe
     depends_on:
       - ffc-demo-web
-    command: [http://ffc-demo-web:3000/, 
-      http://ffc-demo-web:3000/claim/name, 
-      http://ffc-demo-web:3000/claim/property, 
-      http://ffc-demo-web:3000/claim/accessible, 
-      http://ffc-demo-web:3000/claim/mine-type, 
-      http://ffc-demo-web:3000/claim/date-of-subsidence, 
-      http://ffc-demo-web:3000/claim/email, 
-      http://ffc-demo-web:3000/claim/confirmation]
+    command: axe http://ffc-demo-web:3000/ --chromedriver-path=/usr/bin/chromedriver
     volumes:
       - ./test-output/:/home/node/test-output/
 ```
