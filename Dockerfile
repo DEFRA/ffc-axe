@@ -13,4 +13,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN npm install --global --ignore-scripts @axe-core/cli
 
+WORKDIR /home/node
+
 CMD [axe]
