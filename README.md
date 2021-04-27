@@ -27,6 +27,7 @@ services:
     command: axe http://ffc-demo-web:3000/ --chromedriver-path=/usr/bin/chromedriver
     volumes:
       - ./test-output/:/home/node/test-output/
+      - ./scripts/:/home/node/scripts
 ```
 
 ## Licence
