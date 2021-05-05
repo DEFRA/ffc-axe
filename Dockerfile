@@ -1,18 +1,23 @@
-FROM selenium/node-chrome:latest
+ARG PARENT_VERSION=1.2.5-node14.16.1
+ARG AXE_VERSION=4.1.1
+
+FROM defradigital/node-development:${PARENT_VERSION}
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 USER root
 
-RUN apt-get update && apt-get install -y gnupg
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+        chromium \
+        chromium-chromedriver \
+        nss@edge \
+        freetype@edge \
+        harfbuzz@edge \
+        ttf-freefont@edge  
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN npm install --global @axe-core/cli@${AXE_VERSION} --unsafe-perm=true --allow-root
 
-RUN apt-get update && apt-get install -y \
-    nodejs openssh-client  && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists
-
-RUN npm install --global --ignore-scripts @axe-core/cli
-
-WORKDIR /home/node
-
-CMD [axe]
+CMD axe
